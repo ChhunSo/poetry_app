@@ -57,6 +57,10 @@ app.get('/signup', function(req, res) {
 });
 app.get('/profile', function(req, res) {
     res.send("Holla if ya hear me")
+});
+
+app.get('/search', function(req, res) {
+    res.render('search');
 })
 app.post('/login', function(req, res) {
     var email = req.body.email;
@@ -71,7 +75,8 @@ app.post('/login', function(req, res) {
             }
 
         })
-})
+});
+
 
 
 app.post('/signup', function(req, res) {
