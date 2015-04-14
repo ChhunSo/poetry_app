@@ -4,6 +4,7 @@ var db = require('./models'),
     request = require('request'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
+    unirest = require('unirest'),
     app = express();
 
 
@@ -56,12 +57,9 @@ app.get('/signup', function(req, res) {
     res.render('user/signup');
 });
 app.get('/profile', function(req, res) {
-    res.send("Holla if ya hear me")
+    res.render('user/profile')
 });
 
-app.get('/search', function(req, res) {
-    res.render('search');
-})
 app.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password_digest;
@@ -87,16 +85,39 @@ app.post('/signup', function(req, res) {
             res.redirect('/login');
         });
 });
-// app.get('/search', function(req, res) {
-//     var poemSearch= req.query.q;
-//     if (!poemSearch){
-//         res.render('search',{poems:[], })
-//     }
-// })
-// app.delete('/logout', function(req, res) {
-//     req.logout();
-//     res.redirect('/login');
-// });
+app.get('/search', function(req, res) {
+    // These code snippets use an open-source library.
+    unirest.get("https://pafmon-walt-whitman-poems.p.mashape.com/poems/")
+        .header("X-Mashape-Key", "XRH8IS07ojmshCSzA4Ffyk9l1RXKp18vSd1jsnyjRfNHzvbAAq")
+        .header("Accept", "application/json")
+        .end(function(result) {
+            var body = JSON.parse(result.body);
+            res.render('search', {
+                List: body
+            });
+        });
+});
+app.get('/search/:poemSearch', function(req, res) {
+    var poemSearch = req.params.poemSearch;
+    var url = "https://pafmon-walt-whitman-poems.p.mashape.com/poems/" + poemSearch;
+    unirest.get(url)
+        .header("X-Mashape-Key", "XRH8IS07ojmshCSzA4Ffyk9l1RXKp18vSd1jsnyjRfNHzvbAAq")
+        .header("Accept", "application/json")
+        .end(function(result) {
+            var body = JSON.parse(result.body);
+            console.log(result.status, result.headers, result.body);
+            res.render("poems", {
+                poem: body
+            });
+        });
+});
+
+
+
+app.delete('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/login');
+});
 
 
 app.listen(3000, function() {

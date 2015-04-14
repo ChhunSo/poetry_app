@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Search for Poems</title>
+	<title>List of Poems</title>
 </head>
 <body>
-	<h1>Search For Poems</h1>
+	<div class = "container">
+	<h1>List of Poems</h1>
+	<div class ="row">
+	
+	<div>
+		<% List.forEach(function(p){ %>
+		<% console.log(p.text) %>
+		<li><a href="/search/<%=p%>"><%= p%></a></li> 
+		<br>
+	</div>
+	</div>
+	</div>
+		<%})  %>
 </body>
 </html>
