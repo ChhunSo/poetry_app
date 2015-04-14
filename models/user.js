@@ -53,6 +53,9 @@ module.exports = function(sequelize, DataTypes) {
                             return false;
                         }
                     });
+            },
+            associate: function(models) {
+                this.hasMany(models.Poem);
             }
 
         }

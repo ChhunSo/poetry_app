@@ -53,11 +53,15 @@ app.get('/login', function(req, res) {
     });
 });
 
+app.get('/User/post', function(req, res) {
+    res.render('User/post');
+})
+
 app.get('/signup', function(req, res) {
     res.render('user/signup');
 });
-app.get('/profile', function(req, res) {
-    res.render('user/profile')
+app.get('/User/profile', function(req, res) {
+    res.render('User/profile')
 });
 
 app.post('/login', function(req, res) {
@@ -67,7 +71,7 @@ app.post('/login', function(req, res) {
         .then(function(dbUser) {
             if (dbUser) {
                 req.login(dbUser);
-                res.redirect('/profile');
+                res.redirect('User/profile');
             } else {
                 res.redirect('/login');
             }
@@ -75,7 +79,21 @@ app.post('/login', function(req, res) {
         })
 });
 
-
+// app.post('/post', function(req, res) {
+//     req.currentUser().then(function(user) {
+//         if (user) {
+//             db.Poem.create({
+//                     title: req.body.title,
+//                     poem: req.body.poem
+//                 })
+//                 .then(function(poem) {
+//                     res.redirect('User/profile');
+//                 })
+//         } else {
+//             res.redirect('/login');
+//         }
+//     })
+// })
 
 app.post('/signup', function(req, res) {
     var email = req.body.email;
@@ -116,7 +134,7 @@ app.get('/search/:poemSearch', function(req, res) {
 
 app.delete('/logout', function(req, res) {
     req.logout();
-    res.redirect('/login');
+    res.redirect('index');
 });
 
 
