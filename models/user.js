@@ -19,8 +19,8 @@ module.exports = function(sequelize, DataTypes) {
         }
     }, {
         instanceMethods: {
-            checkPassword: function(password_digest) {
-                return bcrypt.compareSync(password_digest, this.password_digest);
+            checkPassword: function(password) {
+                return bcrypt.compareSync(password, this.password_digest);
             }
         },
         classMethods: {

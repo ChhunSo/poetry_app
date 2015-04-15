@@ -22,8 +22,10 @@ app.use(session({
 }));
 
 app.use('/', function(req, res, next) {
-    req.login = function(user) {
-        req.session.userId = user.id
+    req.session.userId = req.session.userId || null;
+
+    req.login = function(User) {
+        req.session.userId = User.id
     };
     req.currentUser = function() {
         return db.User.find(req.session.userId)
@@ -38,19 +40,23 @@ app.use('/', function(req, res, next) {
     };
     next();
 });
-
+app.get('/poems/all', function(req, res) {
+    db.Poem.all().then(function(poems) {
+        res.render('allPoems', {
+            Poems: poems
+        });
+    })
+})
 app.get('/', function(req, res) {
     res.render('index');
 });
 
 app.get('/login', function(req, res) {
-    req.currentUser().then(function(user) {
-        if (user) {
-            res.redirect('/profile');
-        } else {
-            res.render('User/login');
-        }
-    });
+    if (req.session.userId) {
+        res.redirect('/profile');
+    } else {
+        res.render('User/login');
+    }
 });
 
 app.get('/User/post', function(req, res) {
@@ -60,9 +66,11 @@ app.get('/User/post', function(req, res) {
 app.get('/signup', function(req, res) {
     res.render('user/signup');
 });
-app.get('/User/profile', function(req, res) {
+app.get('/profile', function(req, res) {
     db.Poem.findAll({
-            include: db.User
+            where: {
+                UserId: req.session.userId
+            }
         })
         .then(function(poems) {
             res.render('User/profile', {
@@ -71,29 +79,48 @@ app.get('/User/profile', function(req, res) {
         })
 })
 
+app.get('/poems', function(req, res) {
+    db.Poem.findAll({
+        where: {
+            UserId: req.session.userid
+        }
+        .then(function(poems) {
+            res.render("User/list", {
+                poemList: poems
+            })
+
+        })
+    })
+})
 app.post('/login', function(req, res) {
     var email = req.body.email;
-    var password = req.body.password_digest;
+    var password = req.body.password;
     db.User.authenticate(email, password)
         .then(function(dbUser) {
             if (dbUser) {
                 req.login(dbUser);
-                res.redirect('User/profile');
+                // This line should be res.render
+                res.redirect('/profile');
             } else {
                 res.redirect('/login');
             }
 
         })
 });
-app.post('/profile', function(req, res) {
+
+// You're going to need a app.get() that goes to
+// 'GET /poemts/new'
+
+// Change this route path so your posting to
+// POST '/poems
+app.post('/poems', function(req, res) {
     db.Poem.create({
         title: req.body.title,
         content: req.body.content
     }).then(function(Poem) {
-        res.redirect('User/profile');
+        res.redirect('/User/list');
     })
 })
-
 app.post('/signup', function(req, res) {
     var email = req.body.email;
     var password = req.body.password_digest;
@@ -102,19 +129,19 @@ app.post('/signup', function(req, res) {
             res.redirect('/login');
         });
 });
-app.get('/search', function(req, res) {
+app.get('/poemList', function(req, res) {
     // These code snippets use an open-source library.
     unirest.get("https://pafmon-walt-whitman-poems.p.mashape.com/poems/")
         .header("X-Mashape-Key", "XRH8IS07ojmshCSzA4Ffyk9l1RXKp18vSd1jsnyjRfNHzvbAAq")
         .header("Accept", "application/json")
         .end(function(result) {
             var body = JSON.parse(result.body);
-            res.render('search', {
+            res.render('poemList', {
                 List: body
             });
         });
 });
-app.get('/search/:poemSearch', function(req, res) {
+app.get('/poemList/:poemSearch', function(req, res) {
     var poemSearch = req.params.poemSearch;
     var url = "https://pafmon-walt-whitman-poems.p.mashape.com/poems/" + poemSearch;
     unirest.get(url)
@@ -131,7 +158,7 @@ app.get('/search/:poemSearch', function(req, res) {
 
 
 
-app.delete('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
@@ -139,4 +166,4 @@ app.delete('/logout', function(req, res) {
 
 app.listen(3000, function() {
     console.log("We Rappin B");
-});
+})
