@@ -5,7 +5,16 @@
 	<title> Profile Page</title>
 </head>
 <body>
+	<form method ="POST" action="/logout?_method=DELETE">
+		<button>Logout</button>
+	</form>
 	<h1>Its Your World</h1>
 	<a href="/User/post">Post Your Poems</a>
+<h2>Your Poems</h2>
+	<%postPoem.forEach(function(p){ %>
+	Title: <%=p.title  %>
+	Content: <%=p.content  %>
+
+	<%})  %>
 </body>
 </html>

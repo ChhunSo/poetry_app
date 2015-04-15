@@ -48,7 +48,7 @@ app.get('/login', function(req, res) {
         if (user) {
             res.redirect('/profile');
         } else {
-            res.render('user/login');
+            res.render('User/login');
         }
     });
 });
@@ -61,8 +61,15 @@ app.get('/signup', function(req, res) {
     res.render('user/signup');
 });
 app.get('/User/profile', function(req, res) {
-    res.render('User/profile')
-});
+    db.Poem.findAll({
+            include: db.User
+        })
+        .then(function(poems) {
+            res.render('User/profile', {
+                postPoem: poems
+            })
+        })
+})
 
 app.post('/login', function(req, res) {
     var email = req.body.email;
@@ -78,22 +85,14 @@ app.post('/login', function(req, res) {
 
         })
 });
-
-// app.post('/post', function(req, res) {
-//     req.currentUser().then(function(user) {
-//         if (user) {
-//             db.Poem.create({
-//                     title: req.body.title,
-//                     poem: req.body.poem
-//                 })
-//                 .then(function(poem) {
-//                     res.redirect('User/profile');
-//                 })
-//         } else {
-//             res.redirect('/login');
-//         }
-//     })
-// })
+app.post('/profile', function(req, res) {
+    db.Poem.create({
+        title: req.body.title,
+        content: req.body.content
+    }).then(function(Poem) {
+        res.redirect('User/profile');
+    })
+})
 
 app.post('/signup', function(req, res) {
     var email = req.body.email;
@@ -134,10 +133,10 @@ app.get('/search/:poemSearch', function(req, res) {
 
 app.delete('/logout', function(req, res) {
     req.logout();
-    res.redirect('index');
+    res.redirect('/');
 });
 
 
 app.listen(3000, function() {
     console.log("We Rappin B");
-})
+});
