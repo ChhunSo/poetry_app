@@ -5,6 +5,10 @@
 	<title>Document</title>
 </head>
 <body>
+	<form method ="GET" action="/logout">
+	<button>Logout</button>
+</form>
+	<a href="/User/post">Create a Poem</a>
 	<h2>Your Poems</h2>
 	<%poemList.forEach(function(p){ %>
 	
@@ -12,7 +16,7 @@
 	<p><%=p.title  %></p>	
 	<h3>Content:</h3> 
 	<p><%=p.content  %></p>
-	<form action="/poems?_method=DELETE" method="POST">
+	<form action="/poems/<%=poem.id  %>?_method=DELETE" method="POST">
 		<button>Delete</button>
 	</form>
 	<form action="/poems?_method=PUT" method="POST">

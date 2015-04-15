@@ -67,29 +67,21 @@ app.get('/signup', function(req, res) {
     res.render('user/signup');
 });
 app.get('/profile', function(req, res) {
-    db.Poem.findAll({
-            where: {
-                UserId: req.session.userId
-            }
-        })
-        .then(function(poems) {
-            res.render('User/profile', {
-                postPoem: poems
-            })
-        })
-})
+    res.render('User/profile');
+});
 
 app.get('/poems', function(req, res) {
-    db.Poem.findAll({
-        where: {
-            UserId: req.session.userid
-        }
-        .then(function(poems) {
-            res.render("User/list", {
-                poemList: poems
+    req.currentUser().then(function(user) {
+        db.Poem.findAll({
+                where: {
+                    UserId: user.id
+                }
             })
-
-        })
+            .then(function(poems) {
+                res.render("User/list", {
+                    poemList: poems
+                })
+            })
     })
 })
 app.post('/login', function(req, res) {
@@ -100,7 +92,7 @@ app.post('/login', function(req, res) {
             if (dbUser) {
                 req.login(dbUser);
                 // This line should be res.render
-                res.redirect('/profile');
+                res.render('User/profile');
             } else {
                 res.redirect('/login');
             }
@@ -114,13 +106,18 @@ app.post('/login', function(req, res) {
 // Change this route path so your posting to
 // POST '/poems
 app.post('/poems', function(req, res) {
-    db.Poem.create({
-        title: req.body.title,
-        content: req.body.content
-    }).then(function(Poem) {
-        res.redirect('/User/list');
-    })
-})
+    req.currentUser().then(function(user) {
+
+
+        db.Poem.create({
+            title: req.body.title,
+            content: req.body.content,
+            UserId: user.id
+        }).then(function(Poem) {
+            res.redirect('poems');
+        });
+    });
+});
 app.post('/signup', function(req, res) {
     var email = req.body.email;
     var password = req.body.password_digest;
@@ -155,15 +152,25 @@ app.get('/poemList/:poemSearch', function(req, res) {
             });
         });
 });
-
-
-
 app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-
-
+app.delete('/poems/:id', function(req, res) {
+    var id = req.params.id;
+    req.currentUser().then(function(user) {
+        db.Poem.findAll({
+            where: {
+                UserId: User.id
+            }
+            .find(id)
+            .then(function(poem) {
+                poem.destroy()
+                    .then(res.redirect('/poems'))
+            })
+        })
+    })
+})
 app.listen(3000, function() {
     console.log("We Rappin B");
 })

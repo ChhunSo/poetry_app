@@ -5,9 +5,13 @@
 	<title>Document</title>
 </head>
 <body>
+	<a href="/profile">Profile Page</a>
 	<%Poems.forEach(function(poem){  %>
-	  <div><%=poem.title  %>
-			<%=poem.content  %>
+	  <div>
+	  	<h2>Title:</h2>
+	  	<p><%=poem.title  %></p>
+	  	<h2>Content:</h2>
+			<p><%=poem.content  %></p>
 	  </div>
 	  <%})  %>
 </body>
