@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<h2>Edit Your Poem</h2>
+	<form method="POST" action="/poems/<%=poem.id %>?_method=PUT">
+		<input type="text" name="title" value="<%=poem.title  %>">
+		<br/>
+	<textarea name="content" id="content"  cols="30" rows="10"><%=poem.content%></textarea>
+		<button>SAVE</button>
+	</form>
+</body>
+</html>

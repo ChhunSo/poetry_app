@@ -107,8 +107,6 @@ app.post('/login', function(req, res) {
 // POST '/poems
 app.post('/poems', function(req, res) {
     req.currentUser().then(function(user) {
-
-
         db.Poem.create({
             title: req.body.title,
             content: req.body.content,
@@ -156,20 +154,36 @@ app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-app.delete('/poems/:id', function(req, res) {
-    var id = req.params.id;
-    req.currentUser().then(function(user) {
-        db.Poem.findAll({
-            where: {
-                UserId: User.id
-            }
-            .find(id)
-            .then(function(poem) {
-                poem.destroy()
-                    .then(res.redirect('/poems'))
+app.get('/poems/:id/edit', function(req, res) {
+    db.Poem.find(req.params.id)
+        .then(function(poem) {
+            res.render("User/edit", {
+                poem: poem
             })
         })
-    })
+})
+app.put('/poems/:id', function(req, res) {
+    db.Poem.find(req.params.id)
+        .then(function(poem) {
+            console.log(poem);
+            poem.updateAttributes({
+                    title: req.body.title,
+                    content: req.body.content
+                })
+                .then(function(poem) {
+                    res.redirect('/poems')
+                })
+        })
+})
+app.delete('/poems/:id', function(req, res) {
+    var id = req.params.id;
+    db.Poem.find(id)
+        .then(function(poem) {
+            poem.destroy()
+                .then(function(stuff) {
+                    res.redirect('/poems')
+                })
+        })
 })
 app.listen(3000, function() {
     console.log("We Rappin B");

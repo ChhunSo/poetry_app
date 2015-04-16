@@ -16,10 +16,10 @@
 	<p><%=p.title  %></p>	
 	<h3>Content:</h3> 
 	<p><%=p.content  %></p>
-	<form action="/poems/<%=poem.id  %>?_method=DELETE" method="POST">
+	<form action="/poems/<%= p.id %>?_method=DELETE" method="POST">
 		<button>Delete</button>
 	</form>
-	<form action="/poems?_method=PUT" method="POST">
+	<form action="/poems/<%=p.id %>/edit" method="GET">
 		<button>Edit</button>
 	</form>
 	<%})  %>	
