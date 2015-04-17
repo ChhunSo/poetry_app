@@ -29,7 +29,8 @@
 	</div>
     <div class="jumbotron">
     <div class="container">
-	
+	<div class="user-poems-header">
+		<h3>Poems</h2>
 	<%Poems.forEach(function(poem){  %>
 	  <div>
 	  	<h3>Title:</h3>
@@ -41,6 +42,7 @@
 			<%= line %>
 		<% }) %>
 	  </p>
+	  </div>
 	  </div>
 	  <%})  %>
 	  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
