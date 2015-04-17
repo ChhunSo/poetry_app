@@ -5,6 +5,7 @@ var db = require('./models'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     unirest = require('unirest'),
+    env = process.env,
     app = express();
 
 app.use(express.static('public'));
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(session({
-    secret: "Mission Impossible",
+    secret: env.MY_SECRET,
     resave: false,
     save: {
         uninitialize: true
@@ -127,7 +128,7 @@ app.post('/signup', function(req, res) {
 app.get('/poemList', function(req, res) {
     // These code snippets use an open-source library.
     unirest.get("https://pafmon-walt-whitman-poems.p.mashape.com/poems/")
-        .header("X-Mashape-Key", "XRH8IS07ojmshCSzA4Ffyk9l1RXKp18vSd1jsnyjRfNHzvbAAq")
+        .header("X-Mashape-Key", env.MY_API_KEY)
         .header("Accept", "application/json")
         .end(function(result) {
             var body = JSON.parse(result.body);
@@ -140,7 +141,7 @@ app.get('/poemList/:poemSearch', function(req, res) {
     var poemSearch = req.params.poemSearch;
     var url = "https://pafmon-walt-whitman-poems.p.mashape.com/poems/" + poemSearch;
     unirest.get(url)
-        .header("X-Mashape-Key", "XRH8IS07ojmshCSzA4Ffyk9l1RXKp18vSd1jsnyjRfNHzvbAAq")
+        .header("X-Mashape-Key", env.MY_API_KEY)
         .header("Accept", "application/json")
         .end(function(result) {
             var body = JSON.parse(result.body);
