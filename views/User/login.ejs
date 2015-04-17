@@ -29,10 +29,18 @@
 	</div>
     <div class="jumbotron Profile">
     <div class="container">	
+    	<div class="form-login">
+    		<h2 class="form-login-heading">Login</h2>
 	<form method="POST" action="/login">
-		<input type="text" name = "email" placeholder="Email">
-		<input type="password" name= "password" placeholder= "Password">
-		<button>Login</button>
-	</form>
+		<input type="text" class="input-block-level"name = "email" placeholder="Email">
+		<br/>
+		<input type="password" class="input-block-level" name= "password" placeholder= "Password">
+		<br/>
+		<button class="btn btn-large btn-primary">Login</button>
+		</form>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
 </body>
 </html>

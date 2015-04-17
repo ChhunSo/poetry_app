@@ -20,20 +20,26 @@
 			<div class = "collapse navbar-collapse navHeaderCollapse">
 				<ul class = "nav navbar-nav navbar-right">
 					<li class = "active"><a href = "/">Home</a></li>
-					<li><a href = "/poems/all">User Poems</a></li>
                     <li><a href = "/poemList">List of Poems</a></li>
-					<li><a href = "/logout">Logout</a></li>
+					
 				</ul>
 			</div>				
 		</div>
 	</div>
     <div class="jumbotron Profile">
     <div class="container">
-	<div class= "container">
+    	<div class= "form-signup">
+    	    		<h2 class="form-signup-heading">Sign Up</h2>
 	<form method="POST" action = "/signup">
-		<input type="text" name ="email" placeholder="Email">
-		<input type="password" name= "password_digest" placeholder= "Password">
-		<button>G-Pass Granted</button>
+		<input type="text" class="input-block-level" name ="email" placeholder="Email">
+		<input type="password" class= "input-block-level"name= "password_digest" placeholder= "Password">
+		<button class="btn btn-large btn-primary" type="submit">G-Pass Granted</button>
 	</form>
+	</div>
+</div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
 </body>
 </html>
