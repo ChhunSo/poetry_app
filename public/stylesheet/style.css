@@ -1,0 +1,15 @@
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+}
+#Home {
+    background: url("http://www.blogrollcenter.com/news/gallery/most-famous-graphic-designers/most_famous_graphic_designers.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+.jumbotron {
+    background-color: rgba(240, 240, 240, .9);
+    margin-top: 25%;
+}

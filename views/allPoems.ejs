@@ -2,16 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Floetry</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheet/style.css">
+	
 </head>
-<body>
-	<a href="/profile">Profile Page</a>
+<body id="Home">
+	<div class = "navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">	
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+			</button>
+			<div class = "collapse navbar-collapse navHeaderCollapse">
+				<ul class = "nav navbar-nav navbar-right">
+					<li class = "active"><a href = "/">Home</a></li>
+					<li><a href = "/profile">Profile</a></li>
+                    <li><a href = "/poemList">List Of Poems</a></li>
+					<li><a href = "/logout">Logout</a></li>
+				</ul>
+			</div>				
+		</div>
+	</div>
+    <div class="jumbotron">
+    <div class="container">
+	
 	<%Poems.forEach(function(poem){  %>
 	  <div>
-	  	<h2>Title:</h2>
-	  	<p><%=poem.title  %></p>
-	  	<h2>Content:</h2>
-			<p><%=poem.content  %></p>
+	  	<h3>Title:</h3>
+	  	<%=poem.title  %></p>
+	  	<h3>Content:</h3>
+	  	<p>	
+		<%poem.content.split(/\n/).forEach(function(line){ %>
+			<br>
+			<%= line %>
+		<% }) %>
+	  </p>
 	  </div>
 	  <%})  %>
 </body>

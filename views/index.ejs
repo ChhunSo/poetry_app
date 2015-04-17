@@ -2,15 +2,40 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Home Page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Floetry</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheet/style.css">
+	
 </head>
-<body>
-	<div class = "container">
-		<div>
-			<a href="/login">Login</a>
-			<a href="/signup">Sign Up</a>
-			<a href="/poemList">List Of Poems</a>
+<body id="Home">
+	<div class = "navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">	
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+			</button>
+			<div class = "collapse navbar-collapse navHeaderCollapse">
+				<ul class = "nav navbar-nav navbar-right">
+					<li class = "active"><a href = "#">Home</a></li>
+					<li><a href = "/login">Login</a></li>
+                    <li><a href = "/signup">Sign Up</a></li>
+					<li><a href = "/poemList">List of Poems</a></li>
+				</ul>
+			</div>				
 		</div>
 	</div>
+    <div class="jumbotron">
+    <div class="container">
+        <h1>Floetry</h1>
+        <p>The Riot is Easy</br>The Silence is Loud</br>You Can Build Yourself Up</br>
+        Just By Turning Things Down</p>
+    </div>
+        </div>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
 </body>
 </html>

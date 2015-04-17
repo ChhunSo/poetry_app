@@ -7,7 +7,7 @@ var db = require('./models'),
     unirest = require('unirest'),
     app = express();
 
-
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({
@@ -46,7 +46,7 @@ app.get('/poems/all', function(req, res) {
             Poems: poems
         });
     })
-})
+});
 app.get('/', function(req, res) {
     res.render('index');
 });
@@ -83,7 +83,7 @@ app.get('/poems', function(req, res) {
                 })
             })
     })
-})
+});
 app.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
@@ -145,7 +145,7 @@ app.get('/poemList/:poemSearch', function(req, res) {
         .end(function(result) {
             var body = JSON.parse(result.body);
             console.log(result.status, result.headers, result.body);
-            res.render("poems", {
+            res.render("listPoem", {
                 poem: body
             });
         });
@@ -161,7 +161,7 @@ app.get('/poems/:id/edit', function(req, res) {
                 poem: poem
             })
         })
-})
+});
 app.put('/poems/:id', function(req, res) {
     db.Poem.find(req.params.id)
         .then(function(poem) {
@@ -174,7 +174,7 @@ app.put('/poems/:id', function(req, res) {
                     res.redirect('/poems')
                 })
         })
-})
+});
 app.delete('/poems/:id', function(req, res) {
     var id = req.params.id;
     db.Poem.find(id)
@@ -184,7 +184,7 @@ app.delete('/poems/:id', function(req, res) {
                     res.redirect('/poems')
                 })
         })
-})
+});
 app.listen(3000, function() {
     console.log("We Rappin B");
-})
+});

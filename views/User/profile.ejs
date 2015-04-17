@@ -2,22 +2,43 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title> Profile Page</title>
-</head>
-<body>
-	<a href="/poems/all">User Poems</a>
-	<a href="/poemList">List of Poems</a>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Floetry</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="/stylesheet/style.css">
 	
-	<h1>Its Your World</h1>
+</head>
+<body id="Home">
+	<div class = "navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">	
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+				<span class = "icon-bar"></span>
+			</button>
+			<div class = "collapse navbar-collapse navHeaderCollapse">
+				<ul class = "nav navbar-nav navbar-right">
+					<li class = "active"><a href = "/">Home</a></li>
+					<li><a href = "/poems/all">User Poems</a></li>
+                    <li><a href = "/poemList">List of Poems</a></li>
+					<li><a href = "/logout">Logout</a></li>
+				</ul>
+			</div>				
+		</div>
+	</div>
+    <div class="jumbotron Profile">
+    <div class="container">	
+	
+	
+	<h3>Its Your World</h3>
 	<a href="/User/post">Write A Poem</a>
-	<h2>Your Poems</h2>
+	<h3>Your Poems</h3>
 	<a href="/poems">Check Out Your Poems</a>
 <br>
 <br>
 <br>
 <br>
-<form method ="GET" action="/logout">
-		<button>Logout</button>
-	</form>
+
 </body>
 </html>

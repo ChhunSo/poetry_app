@@ -29,14 +29,20 @@
 	</div>
     <div class="jumbotron Profile">
     <div class="container">
-	<h3>List of Poems</h3>	
-		<%List.forEach(function(p){ %>
-		<li><a href="/poemList/<%=p%>"><%=p%></a></li> 
-		<br>
-		<%=p.text  %>
-		<%})  %>
+	<div class= "container">
+	<h2>Title</h2> 
+		<p class="poemTitle"><%= poem.title %></p>
+	<br/>
+	<h2>Text</h2> 
+	<p class= "poemText">
+		<% poem.text.split(/\n/).forEach(function(line){ %>
+			<br>
+			<br>
+			<%= line %>
+		<% }) %>
+ </p>
+	
 	</div>
-	</div>
-		
+	
 </body>
 </html>
