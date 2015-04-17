@@ -186,6 +186,6 @@ app.delete('/poems/:id', function(req, res) {
                 })
         })
 });
-app.listen(3000, function() {
-    console.log("We Rappin B");
+app.listen(process.env.PORT || 3000) {
+console.log("We Rappin B");
 });
